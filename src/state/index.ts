@@ -1,3 +1,3 @@
 export * from './hooks';
 export * from './store';
-export { addTodo, removeTodo, toggleTodoState, updateTodo } from './todoSlice'
+export { addTodo, removeTodo, toggleTodoState, updateTodo, type TodoItem } from './todoSlice'

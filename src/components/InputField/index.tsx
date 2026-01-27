@@ -1,5 +1,6 @@
 import React, { useState, type ChangeEvent } from 'react'
 import { addTodo, useAppDispatch } from '../../state'
+import s from './style.module.scss';
 
 type InputFieldProps = {
   
@@ -22,9 +23,9 @@ export const InputField: React.FC<InputFieldProps> = () => {
     dispatch(addTodo(todoItem))
   }
   return (
-    <div>
+    <div className={s.container}>
       <form onSubmit={handleSubmit}>
-        <input name="todoTitle" value={title} onChange={handleChange} />
+        <input className={s.input}  name="todoTitle" value={title} onChange={handleChange} />
       </form>
     </div>
   )

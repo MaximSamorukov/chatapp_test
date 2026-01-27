@@ -1,8 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
-import type { PayloadAction } from '@reduxjs/toolkit'
-import type { RootState } from './store'
 
-type TodoItem = {
+
+export type TodoItem = {
   id: number;
   title: string;
   isDone: boolean;
@@ -22,6 +21,7 @@ export const todoSlice = createSlice({
   reducers: {
     addTodo: (state, action) => {
       const item = { id: Date.now(), title: action.payload.title, isDone: false}
+      console.log(item)
       state.todos = [item, ...state.todos]
     },
     removeTodo: (state, action) => {
@@ -29,6 +29,7 @@ export const todoSlice = createSlice({
       state.todos = state.todos.filter((i) => i.id !== id);
     },
     toggleTodoState: (state, action) => {
+      console.log(action)
       state.todos = state.todos.map((i) => {
         if (i.id === action.payload.id) {
           return {

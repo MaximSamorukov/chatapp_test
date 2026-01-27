@@ -1,0 +1,43 @@
+.container {
+  width: 100%;
+  height: 50px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 5px;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(255, 59, 48, 0.15);
+}
+
+.title {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: 100%;
+  justify-content: flex-start;
+  box-sizing: border-box;
+  padding: 0;
+}
+
+.controls {
+  width: 70px;
+  height: 20px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  box-sizing: border-box;
+  padding: 0;
+}
+
+.control {
+  all: unset;
+  width: 20px;
+  height: 20px;
+  padding: 0;
+  box-sizing: border-box;
+}
