@@ -2,12 +2,46 @@
 .container {
   max-width: 500px;
   width: 500px;
-  height: 300px;
+  min-height: 300px;
+  height: fit-content;
   box-sizing: border-box;
-  border: 1px solid red;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   justify-content: flex-start;
   gap: 5px;
+
+  @media(max-width: 520px) {
+    width: 420px;
+  }
+  @media(max-width: 450px) {
+    width: 300px;
+  }
+  @media(max-width: 330px) {
+    width: 270px;
+  }
+}
+
+
+
+.todoItemsContainer {
+  height: 610px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  box-sizing: border-box;
+  padding: 0;
+  padding-right: 10px;
+  padding-left: 10px;
+  padding-bottom: 10px;
+  gap: 5px;
+  overflow-y: auto;
+  scrollbar-gutter: stable
+}
+
+.empty {
+  align-items: center;
+  justify-content: center;
 }

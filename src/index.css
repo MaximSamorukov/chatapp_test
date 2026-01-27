@@ -24,8 +24,19 @@ body {
 #root {
   max-width: 1280px;
   margin: 0 auto;
-  padding: 2rem;
+  max-height: 670px;
+  overflow-y: hidden;
+  padding: 1rem;
+  padding-top: 1rem;
   text-align: center;
+  box-shadow: 0 4px 12px rgba(255, 59, 48, 0.15);
 }
 
 
+::-webkit-scrollbar {
+  width: 1px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #4d4d4d;
+}

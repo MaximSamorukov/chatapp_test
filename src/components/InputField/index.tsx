@@ -15,11 +15,12 @@ export const InputField: React.FC<InputFieldProps> = () => {
   }
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    console.log(title);
+
     const todoItem = {
       title,
       isDone: false
     }
+    setTitle('')
     dispatch(addTodo(todoItem))
   }
   return (

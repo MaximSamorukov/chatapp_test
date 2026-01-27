@@ -1,5 +1,6 @@
 
 import  s from './app.module.scss';
+import cn from 'classnames';
 import { ControlPanel } from './components/ControlPanel';
 import { InputField } from './components/InputField';
 import { TodoItem } from './components/TodoItem';
@@ -11,9 +12,12 @@ function App() {
     <div className={s.container}>
       <InputField />
       <ControlPanel />
-      {todos.map((i) => (
-        <TodoItem id={i.id} title={i.title} isDone={i.isDone} />
-      ))}
+      <div className={cn(s.todoItemsContainer, {[s.empty]: !todos.length})}>
+        {todos.map((i) => (
+          <TodoItem key={i.id} id={i.id} title={i.title} isDone={i.isDone} />
+        ))}
+        {!todos.length && <div>У вас пока нет todos</div>}
+      </div>
     </div>
   )
 }
