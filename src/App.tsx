@@ -4,25 +4,28 @@ import cn from 'classnames';
 import { ControlPanel } from './components/ControlPanel';
 import { InputField } from './components/InputField';
 import { TodoItem } from './components/TodoItem';
-import { useAppSelector } from './state';
-import { useState } from 'react';
+import { selector, useAppSelector } from './state';
+import { useMemo, useState } from 'react';
 import type { FilterType } from './types';
+import { FILTER } from './constants';
 
 
 
 function App() {
-  const [filter, setFilter] = useState<FilterType>('all');
-  const originalTodos = useAppSelector((s) => s.todos.todos)
-  const todos = useAppSelector((s) => {
-    if (filter === 'done') {
-      return s.todos.todos.filter((i) => i.isDone)
+  const [filter, setFilter] = useState<FilterType>(FILTER.ALL);
+  const originalTodos = useAppSelector(selector)
+
+  const todos = useMemo(() => {
+        if (filter === FILTER.DONE) {
+      return originalTodos.filter((i) => i.isDone)
     }
-    if (filter === 'not_done') {
-      return s.todos.todos.filter((i) => !i.isDone)
+    if (filter === FILTER.NOT_DONE) {
+      return originalTodos.filter((i) => !i.isDone)
     }
-    return s.todos.todos
-  })
-  const emptyText = originalTodos.length === 0 ? 'У вас нет todos' : `У вас нет ${filter === 'done' ? 'выполненных' : 'невыполненных'} todos`
+    return originalTodos
+  }, [filter, originalTodos])
+
+  const emptyText = originalTodos.length === 0 ? 'У вас нет todos' : `У вас нет ${filter === FILTER.DONE ? 'выполненных' : 'невыполненных'} todos`
   return (
     <div className={s.container}>
       <InputField />
