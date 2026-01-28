@@ -1,30 +1,34 @@
-import React, { useState, type ChangeEvent } from 'react'
-import { addTodo, useAppDispatch } from '../../state'
-import s from './style.module.scss';
+import React, { useState, type ChangeEvent } from "react";
+import { addTodo, useAppDispatch } from "../../state";
+import s from "./style.module.scss";
 
 export const InputField: React.FC = () => {
-  const [title, setTitle] = useState('')
-  const dispatch = useAppDispatch()
+  const [title, setTitle] = useState("");
+  const dispatch = useAppDispatch();
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const text = e.target.value;
-    setTitle(text)
-  }
+    setTitle(text);
+  };
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
+    e.preventDefault();
 
     const todoItem = {
       title,
-      isDone: false
-    }
-    setTitle('')
-    dispatch(addTodo(todoItem))
-  }
+      isDone: false,
+    };
+    setTitle("");
+    dispatch(addTodo(todoItem));
+  };
   return (
     <div className={s.container}>
       <form onSubmit={handleSubmit}>
-        <input className={s.input}  name="todoTitle" value={title} onChange={handleChange} />
+        <input
+          className={s.input}
+          name="todoTitle"
+          value={title}
+          onChange={handleChange}
+        />
       </form>
     </div>
-  )
-}
-
+  );
+};
