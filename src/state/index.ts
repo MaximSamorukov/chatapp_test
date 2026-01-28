@@ -1,4 +1,4 @@
 export * from './hooks';
 export * from './store';
 export * from './selectors';
-export { addTodo, removeTodo, toggleTodoState, updateTodo, type TodoItem } from './todoSlice'
+export { toggleDoneFilter, toggleNotDoneFilter, addTodo, setFilteredItemsWithNewOrder, removeTodo, toggleTodoState, updateTodo, type TodoItem } from './todoSlice'

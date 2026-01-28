@@ -1,1 +1,0 @@
-export type FilterType = 'all' | 'done' | 'not_done';

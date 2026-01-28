@@ -1,5 +1,5 @@
 import type { RootState } from "./store";
 
-export function selector(s: RootState){
-  return s.todos.todos
-}
+export const selector = (s: RootState) => s.todos.todos;
+export const filterSelector = (s: RootState) => s.todos.filter;
+export const filteredTodosSelector = (s: RootState) => s.todos.filteredTodos;

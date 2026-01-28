@@ -11,7 +11,7 @@ export const store = configureStore({
 store.subscribe(() => {
   const state = store.getState();
   try {
-    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(state.todos.todos));
+    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(state.todos));
   } catch (error) {
     console.error('Ошибка сохранения в localStorage:', error);
   }

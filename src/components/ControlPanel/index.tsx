@@ -2,32 +2,21 @@ import React from 'react';
 import cn from 'classnames';
 import DoneIcon  from '../../assets/done.svg?react';
 import NotDoneIcon  from '../../assets/not_done.svg?react';
+import { FILTER } from '../../constants';
+import { useAppDispatch, toggleDoneFilter as toggleDoneFilterAction, toggleNotDoneFilter as toggleNotDoneFilterAction, useAppSelector, type RootState, filterSelector } from '../../state';
 
 import s from './style.module.scss';
-import type { FilterType } from '../../types';
-import { FILTER } from '../../constants';
 
-type ControlPanelProps = {
-  filter: FilterType
-  setFilter: (arg: FilterType) => void
-}
+type ControlPanelProps = {}
 
-
-
-export const ControlPanel: React.FC<ControlPanelProps> = ({ filter, setFilter }) => {
+export const ControlPanel: React.FC<ControlPanelProps> = () => {
+  const filter = useAppSelector(filterSelector)
+  const dispatch = useAppDispatch();
   const toggleDoneFilter = () => {
-    if (filter === FILTER.DONE) {
-      setFilter(FILTER.ALL);
-    } else {
-      setFilter(FILTER.DONE)
-    }
+    dispatch(toggleDoneFilterAction())
   }
   const toggleNotDoneFilter = () => {
-    if (filter === FILTER.NOT_DONE) {
-      setFilter(FILTER.ALL);
-    } else {
-      setFilter(FILTER.NOT_DONE)
-    }
+    dispatch(toggleNotDoneFilterAction())
   }
   return (
     <div className={s.container}>

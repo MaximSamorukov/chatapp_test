@@ -19,29 +19,14 @@ import {
 import { ControlPanel } from './components/ControlPanel';
 import { InputField } from './components/InputField';
 import { TodoItem } from './components/TodoItem';
-import { selector, useAppSelector, type TodoItem as TodoItemType } from './state';
-import { useEffect, useMemo, useState } from 'react';
-import type { FilterType } from './types';
+import { filteredTodosSelector, filterSelector, selector, setFilteredItemsWithNewOrder, useAppDispatch, useAppSelector, type TodoItem as TodoItemType } from './state';
 import { FILTER } from './constants';
 
 function App() {
-  const [filter, setFilter] = useState<FilterType>(FILTER.ALL);
-  const [todos, setTodos] = useState<TodoItemType[]>([])
+  const filter = useAppSelector(filterSelector);
   const originalTodos = useAppSelector(selector)
-
-  const filteredTodos = useMemo(() => {
-    if (filter === FILTER.DONE) {
-      return originalTodos.filter((i) => i.isDone)
-    }
-    if (filter === FILTER.NOT_DONE) {
-      return originalTodos.filter((i) => !i.isDone)
-    }
-    return originalTodos
-  }, [filter, originalTodos])
-
-  useEffect(() => {
-    setTodos(() => filteredTodos)
-  }, [filteredTodos])
+  const filteredTodos = useAppSelector(filteredTodosSelector)
+  const dispatch = useAppDispatch();
   
   const sensors = useSensors(
     useSensor(PointerSensor),
@@ -53,12 +38,10 @@ function App() {
     const {active, over} = event;
     
     if (active.id !== over?.id) {
-      setTodos((items) => {
-        const oldIndex = items.findIndex((item) => item.id === active.id);
-        const newIndex = items.findIndex((item) => item.id === over?.id);
-        
-        return arrayMove(items, oldIndex, newIndex);
-      });
+      const oldIndex = filteredTodos.findIndex((item) => item.id === active.id);
+      const newIndex = filteredTodos.findIndex((item) => item.id === over?.id);
+      const items = arrayMove(filteredTodos, oldIndex, newIndex);
+      dispatch(setFilteredItemsWithNewOrder({ items }));
     }
   }
 
@@ -66,23 +49,23 @@ function App() {
   return (
     <div className={s.container}>
       <InputField />
-      <ControlPanel filter={filter} setFilter={setFilter}/>
-      <div className={cn(s.todoItemsContainer, {[s.empty]: !todos.length})}>
+      <ControlPanel />
+      <div className={cn(s.todoItemsContainer, {[s.empty]: !filteredTodos.length})}>
         <DndContext
           sensors={sensors}
           collisionDetection={closestCenter}
           onDragEnd={handleDragEnd}
         >
           <SortableContext 
-            items={todos}
+            items={filteredTodos}
             strategy={verticalListSortingStrategy}
           >
-            {todos.map((i) => (
+            {filteredTodos.map((i) => (
               <TodoItem key={i.id} id={i.id} title={i.title} isDone={i.isDone} />
             ))}
           </SortableContext>
         </DndContext>
-        {!todos.length && <div>{emptyText}</div>}
+        {!filteredTodos.length && <div>{emptyText}</div>}
       </div>
     </div>
   )
