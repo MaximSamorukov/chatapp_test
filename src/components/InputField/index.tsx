@@ -2,11 +2,7 @@ import React, { useState, type ChangeEvent } from 'react'
 import { addTodo, useAppDispatch } from '../../state'
 import s from './style.module.scss';
 
-type InputFieldProps = {
-  
-}
-
-export const InputField: React.FC<InputFieldProps> = () => {
+export const InputField: React.FC = () => {
   const [title, setTitle] = useState('')
   const dispatch = useAppDispatch()
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {

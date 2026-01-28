@@ -19,7 +19,7 @@ import {
 import { ControlPanel } from './components/ControlPanel';
 import { InputField } from './components/InputField';
 import { TodoItem } from './components/TodoItem';
-import { filteredTodosSelector, filterSelector, selector, setFilteredItemsWithNewOrder, useAppDispatch, useAppSelector, type TodoItem as TodoItemType } from './state';
+import { filteredTodosSelector, filterSelector, selector, setFilteredItemsWithNewOrder, useAppDispatch, useAppSelector } from './state';
 import { FILTER } from './constants';
 
 function App() {

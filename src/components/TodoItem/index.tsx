@@ -21,7 +21,6 @@ export const TodoItem: React.FC<TodoItemProps> = ({ id, title, isDone }) => {
     listeners,
     setNodeRef,
     transform,
-    transition,
   } = useSortable({
         id,
         transition: {
