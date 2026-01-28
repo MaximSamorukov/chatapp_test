@@ -63,6 +63,7 @@ export const TodoItem: React.FC<TodoItemProps> = ({ id, title, isDone }) => {
     if (editedTitle !== title) {
       dispatch(updateTodo({ id, isDone, title: editedTitle }));
     }
+    setEditState(false);
   };
   return (
     <div ref={setNodeRef} style={style} className={s.container} {...attributes}>
