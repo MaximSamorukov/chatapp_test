@@ -1,5 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit'
 import todosReducer from './todoSlice';
+import { LOCAL_STORAGE_KEY } from '../constants';
 
 export const store = configureStore({
   reducer: {
@@ -7,5 +8,13 @@ export const store = configureStore({
   },
 })
 
+store.subscribe(() => {
+  const state = store.getState();
+  try {
+    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(state.todos.todos));
+  } catch (error) {
+    console.error('Ошибка сохранения в localStorage:', error);
+  }
+})
 export type RootState = ReturnType<typeof store.getState>
 export type AppDispatch = typeof store.dispatch

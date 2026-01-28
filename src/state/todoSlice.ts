@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
+import { LOCAL_STORAGE_KEY } from '../constants';
 
 
 export type TodoItem = {
@@ -11,8 +12,18 @@ type TodosState = {
   todos: TodoItem[]
 }
 
+const loadTodosFromStorage = () => {
+  try {
+    const savedTodos = localStorage.getItem(LOCAL_STORAGE_KEY);
+    return savedTodos ? JSON.parse(savedTodos) : [];
+  } catch (error) {
+    console.error('Ошибка загрузки из localStorage:', error);
+    return [];
+  }
+};
+
 const initialState: TodosState = {
-  todos: [],
+  todos: loadTodosFromStorage(),
 }
 
 export const todoSlice = createSlice({
@@ -21,7 +32,6 @@ export const todoSlice = createSlice({
   reducers: {
     addTodo: (state, action) => {
       const item = { id: Date.now(), title: action.payload.title, isDone: false}
-      console.log(item)
       state.todos = [item, ...state.todos]
     },
     removeTodo: (state, action) => {
@@ -29,7 +39,6 @@ export const todoSlice = createSlice({
       state.todos = state.todos.filter((i) => i.id !== id);
     },
     toggleTodoState: (state, action) => {
-      console.log(action)
       state.todos = state.todos.map((i) => {
         if (i.id === action.payload.id) {
           return {
